@@ -7,9 +7,6 @@ concurrency:
 on:
   push:
     branches: ["master"]
-    paths:
-      - "terraform/**"
-      - ".github/workflows/**"
 
 jobs:
   apply:
@@ -17,8 +14,9 @@ jobs:
     defaults:
       run:
         working-directory: terraform
+
     env:
-      TF_VAR_student_id: alt-soe-025-1118
+      TF_VAR_student_id: ${{ secrets.TF_VAR_student_id }}
 
     steps:
       - uses: actions/checkout@v4
@@ -30,6 +28,13 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
+      - name: Check TF_VAR_student_id
+        run: |
+          if [ -z "$TF_VAR_student_id" ]; then
+            echo "TF_VAR_student_id is missing" && exit 1
+          fi
+          echo "TF_VAR_student_id is set"
 
       - name: Terraform Init
         run: terraform init
