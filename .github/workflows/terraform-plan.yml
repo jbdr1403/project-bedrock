@@ -45,6 +45,11 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
+      - name: Build Lambda zip
+        run: |
+          cd lambda
+          zip -r asset-processor.zip handler.py
+
       - name: Terraform Plan
         run: terraform plan -lock-timeout=5m -no-color | tee plan.txt
 

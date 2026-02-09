@@ -36,9 +36,14 @@ jobs:
           fi
           echo "TF_VAR_student_id is set"
 
+      - name: Build Lambda zip
+        run: |
+          cd lambda
+          zip -r asset-processor.zip handler.py
+
       - name: Terraform Init
         run: terraform init
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -lock-timeout=5m
 
