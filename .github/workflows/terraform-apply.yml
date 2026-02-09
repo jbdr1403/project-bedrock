@@ -1,5 +1,9 @@
 name: Terraform Apply (master)
 
+concurrency:
+  group: project-bedrock-terraform
+  cancel-in-progress: true
+
 on:
   push:
     branches: ["master"]
@@ -13,6 +17,8 @@ jobs:
     defaults:
       run:
         working-directory: terraform
+    env:
+      TF_VAR_student_id: alt-soe-025-1118
 
     steps:
       - uses: actions/checkout@v4

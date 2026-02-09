@@ -1,5 +1,9 @@
 name: Terraform Plan (PR)
 
+concurrency:
+  group: project-bedrock-terraform
+  cancel-in-progress: true
+
 on:
   pull_request:
     branches: ["master"]
