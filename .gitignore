@@ -1,0 +1,20 @@
+cat > .gitignore <<'EOF'
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+
+# Lambda build artifacts
+lambda/*.zip
+
+# Test files
+terraform/test.txt
+
+# OS junk
+.DS_Store
+
+# Logs
+*.log
+EOF
+
