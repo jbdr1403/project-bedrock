@@ -47,7 +47,7 @@ jobs:
 
       - name: Build Lambda zip
         run: |
-          cd lambda
+          cd ../lambda
           zip -r asset-processor.zip handler.py
 
       - name: Terraform Plan
