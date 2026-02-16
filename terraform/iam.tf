@@ -1,6 +1,25 @@
 resource "aws_iam_user" "bedrock_dev_view" {
   name = "bedrock-dev-view"
 }
+resource "aws_iam_policy" "bedrock_dev_view_s3_put" {
+  name = "bedrock-dev-view-s3-put"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = ["s3:PutObject"]
+        Resource = "${aws_s3_bucket.assets.arn}/*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_user_policy_attachment" "bedrock_dev_view_s3" {
+  user       = aws_iam_user.bedrock_dev_view.name
+  policy_arn = aws_iam_policy.bedrock_dev_view_s3_put.arn
+}
+
 
 resource "aws_iam_user_policy_attachment" "bedrock_dev_view_readonly" {
   user       = aws_iam_user.bedrock_dev_view.name
