@@ -18,3 +18,24 @@ terraform/test.txt
 *.log
 EOF
 
+cat >> .gitignore <<'EOF'
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+terraform.tfstate.d/
+*.backup
+*.save
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# Local output files
+grading.sanitized.json
