@@ -1,5 +1,6 @@
 resource "aws_iam_user" "bedrock_dev_view" {
   name = "bedrock-dev-view"
+  tags = local.common_tags
 }
 resource "aws_iam_policy" "bedrock_dev_view_s3_put" {
   name = "bedrock-dev-view-s3-put"

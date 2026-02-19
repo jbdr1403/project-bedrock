@@ -1,14 +1,14 @@
 locals {
-  assets_bucket_name = "bedrock-assets-${var.student_id}"
+  assets_bucket_name = "bedrock-assets-${lower(replace(var.student_id, "/", "-"))}"
 }
 
 # ---------- S3 BUCKET ----------
 resource "aws_s3_bucket" "assets" {
-  bucket = local.assets_bucket_name
+  bucket = "bedrock-assets-${var.student_id}"
 
-  tags = {
-    Project = "Bedrock"
-  }
+  tags = merge(local.common_tags, {
+    Name = "bedrock-assets-${var.student_id}"
+  })
 }
 
 resource "aws_s3_bucket_public_access_block" "assets" {
@@ -32,9 +32,7 @@ resource "aws_iam_role" "lambda_role" {
     }]
   })
 
-  tags = {
-    Project = "Bedrock"
-  }
+  tags = local.common_tags
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_logs" {
@@ -52,9 +50,7 @@ resource "aws_lambda_function" "asset_processor" {
   filename         = "${path.module}/../lambda/asset-processor.zip"
   source_code_hash = filebase64sha256("${path.module}/../lambda/asset-processor.zip")
 
-  tags = {
-    Project = "Bedrock"
-  }
+  tags = local.common_tags
 }
 
 # ---------- S3 → LAMBDA PERMISSION ----------

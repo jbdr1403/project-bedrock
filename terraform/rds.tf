@@ -16,9 +16,9 @@ resource "aws_db_subnet_group" "bedrock" {
   name       = "bedrock-db-subnets"
   subnet_ids = module.vpc.private_subnets
 
-  tags = {
-    Project = "Bedrock"
-  }
+  tags = merge(local.common_tags, {
+  Name = "bedrock-db-subnets" })
+
 }
 
 # Security Group: allow DB inbound ONLY from EKS nodes
@@ -27,9 +27,9 @@ resource "aws_security_group" "rds" {
   description = "Allow DB traffic from EKS nodes only"
   vpc_id      = module.vpc.vpc_id
 
-  tags = {
-    Project = "Bedrock"
-  }
+  tags = merge(local.common_tags, {
+    Name = "bedrock-rds-sg"
+  })
 }
 
 # Allow MySQL from EKS node SG
@@ -87,9 +87,10 @@ resource "aws_db_instance" "catalog_mysql" {
   deletion_protection     = false
   backup_retention_period = 0
 
-  tags = {
-    Project = "Bedrock"
-  }
+  tags = merge(local.common_tags, {
+    Name = "bedrock-catalog-mysql"
+  })
+
 }
 
 # -----------------------------
@@ -115,7 +116,7 @@ resource "aws_db_instance" "orders_postgres" {
   deletion_protection     = false
   backup_retention_period = 0
 
-  tags = {
-    Project = "Bedrock"
-  }
+  tags = merge(local.common_tags, {
+    Name = "bedrock-orders-postgres"
+  })
 }

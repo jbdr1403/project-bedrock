@@ -23,9 +23,8 @@ variable "private_subnet_cidrs" {
   default     = ["10.0.101.0/24", "10.0.102.0/24"]
 }
 
-
-
 variable "student_id" {
-  description = "Student ID for unique S3 assets bucket"
+  description = "Your student ID in lowercase with hyphens, e.g. alt-soe-025-1118"
   type        = string
 }
+

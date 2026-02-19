@@ -1,6 +1,10 @@
 module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
+  source       = "terraform-aws-modules/eks/aws"
+  version      = "~> 20.0"
+  cluster_name = "project-bedrock-cluster"
+  tags         = local.common_tags
+  cluster_tags = local.common_tags
+
 
   access_entries = {
     admin = {
@@ -24,7 +28,6 @@ module "eks" {
     }
   }
 
-  cluster_name    = "project-bedrock-cluster"
   cluster_version = "1.34"
 
   vpc_id     = module.vpc.vpc_id
@@ -42,10 +45,12 @@ module "eks" {
 
   eks_managed_node_groups = {
     default = {
-      instance_types = ["t3.medium"]
-      desired_size   = 2
-      min_size       = 2
-      max_size       = 3
+      instance_types              = ["t3.medium"]
+      desired_size                = 2
+      min_size                    = 2
+      max_size                    = 3
+      node_security_group_tags    = local.common_tags
+      cluster_security_group_tags = local.common_tags
     }
   }
 

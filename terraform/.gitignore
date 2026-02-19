@@ -15,3 +15,36 @@ lambda/*.zip
 # Logs
 *.log
 
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+terraform.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl.backup
+
+# Local environment / secrets
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.kubeconfig
+kubeconfig*
+
+# AWS local creds (just in case)
+**/credentials
+**/config
+
+# Build artifacts
+*.zip
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/

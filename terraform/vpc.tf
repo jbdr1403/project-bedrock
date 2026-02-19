@@ -1,6 +1,9 @@
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~>5.0"
+  tags = merge(local.common_tags, {
+    Name = "project-bedrock-vpc"
+  })
 
   name = "project-bedrock-vpc"
   cidr = var.vpc_cidr
