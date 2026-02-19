@@ -7,7 +7,7 @@
   "bedrock_dev_view_access_key_id": {
     "sensitive": false,
     "type": "string",
-    "value": "AKIAX3FHEBGYP74ON56H"
+    "value": "REDACTED"
   },
   "bedrock_dev_view_secret_access_key": {
     "sensitive": true,
