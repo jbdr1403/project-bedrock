@@ -1,4 +1,4 @@
-# 🚀 Project Bedrock
+# Project Bedrock
 
 **InnovateMart – Production-Grade Amazon EKS Deployment**  
 **Cloud DevOps Capstone – ALT SCHOOL AFRICA Barakat Cohort 2025**
