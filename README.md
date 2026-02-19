@@ -1,114 +1,81 @@
-🚀 Project Bedrock
-InnovateMart – Production-Grade Amazon EKS Deployment
+# 🚀 Project Bedrock
 
-Cloud DevOps Capstone – Barakat 2025
+**InnovateMart – Production-Grade Amazon EKS Deployment**  
+**Cloud DevOps Capstone – Barakat 2025**
 
-📌 Overview
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
+![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+![Amazon EKS](https://img.shields.io/badge/Amazon%20EKS-1.34+-FF9900?style=for-the-badge&logo=amazon-eks)
 
-Project Bedrock delivers a fully automated, production-aligned Kubernetes platform for InnovateMart’s microservices-based retail application.
+**Fully automated, production-ready Kubernetes platform** for a microservices-based retail application — built with real-world DevOps best practices.
 
-The environment is provisioned entirely using Terraform, deployed on Amazon EKS (v1.34+), and enhanced with observability, secure developer access, CI/CD automation, and event-driven serverless architecture.
+## 📌 Project Highlights
 
-This implementation reflects real-world DevOps best practices including infrastructure immutability, least-privilege IAM design, centralized logging, and GitOps-style deployment workflows.
+- 100% **Terraform**-provisioned infrastructure
+- **Amazon EKS** (v1.34+) in **us-east-1** — multi-AZ, high availability
+- **GitOps**-style CI/CD via **GitHub Actions**
+- Secure access: least-privilege IAM + Kubernetes RBAC
+- Centralized observability with **CloudWatch**
+- Event-driven serverless extension (S3 → Lambda)
+- Bonus: RDS MySQL + PostgreSQL for catalog & orders
 
-🏗 Architecture Summary
+## 🏗 Architecture Overview
 
-AWS Region: us-east-1
+Multi-AZ VPC with public/private subnets → EKS cluster → AWS ALB Ingress → microservices in `retail-app` namespace.
 
-EKS Cluster: project-bedrock-cluster
+**Core components:**
 
-VPC: project-bedrock-vpc (Multi-AZ, Public + Private Subnets)
+- EKS Control Plane + Managed Node Groups
+- AWS Load Balancer Controller (ALB)
+- RDS (MySQL & PostgreSQL) – bonus
+- S3 bucket + Lambda asset processor
 
-Namespace: retail-app
+**Example architecture diagrams** (real-world EKS patterns for inspiration):
 
-Ingress: AWS Load Balancer Controller (ALB)
+<grok-card data-id="040b86" data-type="image_card" data-plain-type="render_searched_image"  data-arg-size="LARGE" ></grok-card>
 
-Remote State: S3 + DynamoDB (State Locking)
+<grok-card data-id="7af62d" data-type="image_card" data-plain-type="render_searched_image"  data-arg-size="LARGE" ></grok-card>
 
-Tagging: Project = barakat-2025-capstone
+<grok-card data-id="1a3022" data-type="image_card" data-plain-type="render_searched_image"  data-arg-size="LARGE" ></grok-card>
 
-Data Layer
+<grok-card data-id="b1c637" data-type="image_card" data-plain-type="render_searched_image"  data-arg-size="LARGE" ></grok-card>
 
-In-cluster dependencies (Core requirement)
+<grok-card data-id="8562fd" data-type="image_card" data-plain-type="render_searched_image"  data-arg-size="LARGE" ></grok-card>
 
-RDS MySQL (Catalog) – Bonus
+## 🔐 Security & Access
 
-RDS PostgreSQL (Orders) – Provisioned (Bonus)
+| Component          | Implementation                                      | Privilege Level |
+| ------------------ | --------------------------------------------------- | --------------- |
+| IAM Developer User | `bedrock-dev-view`                                  | ReadOnlyAccess  |
+| Kubernetes RBAC    | `view` ClusterRole                                  | Read-only       |
+| S3 Permissions     | PutObject only on `bedrock-assets-alt-soe-025-1118` | Least privilege |
+| Secrets            | Kubernetes Secrets + Terraform                      | REDACTED        |
+| Principle          | Least Privilege enforced everywhere                 | —               |
 
-Serverless Extension
+## 📊 Observability
 
-S3 Bucket: bedrock-assets-alt-soe-025-1118
+- EKS control plane logs (**API, Audit, Scheduler, Controller Manager**) → CloudWatch
+- Application logs → CloudWatch
+- Lambda execution logs → CloudWatch Log Groups
 
-Lambda Function: bedrock-asset-processor
+Full visibility into infrastructure, application, and serverless components.
 
-Triggered on object upload → logs filename to CloudWatch
+## ⚙️ CI/CD Pipeline (GitHub Actions)
 
-🔐 Security Model
+| Git Event       | Action Performed  | Outcome                         |
+| --------------- | ----------------- | ------------------------------- |
+| Pull Request    | `terraform plan`  | Preview changes                 |
+| Merge to `main` | `terraform apply` | Automatic infrastructure update |
 
-IAM Developer User: bedrock-dev-view
+AWS credentials stored securely as **GitHub Secrets**.
 
-AWS Console: ReadOnlyAccess
+## 🌍 Application Access
 
-Kubernetes: view ClusterRole (RBAC)
+Retail Store UI exposed via **AWS Application Load Balancer**:
 
-Limited S3 PutObject permission (assets bucket)
-
-No hardcoded credentials
-
-Secrets managed via Kubernetes Secrets / Terraform
-
-Principle of Least Privilege enforced
-
-📊 Observability
-
-EKS Control Plane Logging enabled (API, Audit, Scheduler, Controller Manager)
-
-Application logs shipped to Amazon CloudWatch
-
-Lambda execution logs available in CloudWatch Log Groups
-
-⚙️ CI/CD Automation
-
-GitHub Actions Pipeline:
-
-Event Action
-Pull Request terraform plan
-Merge to master terraform apply
-
-AWS credentials stored securely as repository secrets
-
-Fully automated infrastructure lifecycle
-
-🌍 Application Access
-
-The Retail Store UI is exposed via AWS Application Load Balancer.
-
-kubectl -n retail-app get ingress retail-ui -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
-
-📦 Repository Structure
-.
-├── terraform/ # Infrastructure as Code
-├── lambda/ # Asset processor function
-├── .github/workflows # CI/CD pipeline
-├── grading.json # Required Terraform outputs
-└── README.md
-
-🎯 Outcome
-
-Project Bedrock provides:
-
-Reproducible Infrastructure
-
-Secure Developer Access
-
-Production-Grade Kubernetes Deployment
-
-Centralized Logging
-
-Event-Driven Serverless Integration
-
-Automated CI/CD Delivery
-
-This environment is ready for developer hand-off and horizontal scaling.
-
-If you'd like, I can also give you a slightly more minimalist version or a visually enhanced version with badges.
+```bash
+kubectl -n retail-app get ingress retail-ui \
+  -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+```
