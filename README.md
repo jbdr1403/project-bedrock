@@ -1,7 +1,7 @@
 # 🚀 Project Bedrock
 
 **InnovateMart – Production-Grade Amazon EKS Deployment**  
-**Cloud DevOps Capstone – Barakat 2025**
+**Cloud DevOps Capstone – ALT SCHOOL AFRICA Barakat Cohort 2025**
 
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
@@ -9,9 +9,9 @@
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
 ![Amazon EKS](https://img.shields.io/badge/Amazon%20EKS-1.34+-FF9900?style=for-the-badge&logo=amazon-eks)
 
-**Fully automated, production-ready Kubernetes platform** for a microservices-based retail application — built with real-world DevOps best practices.
+**Fully automated, production-ready Kubernetes platform** for a microservices-based retail application, built with real-world DevOps best practices.
 
-## 📌 Project Highlights
+## Project Highlights
 
 - 100% **Terraform**-provisioned infrastructure
 - **Amazon EKS** (v1.34+) in **us-east-1** — multi-AZ, high availability
